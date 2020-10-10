@@ -4,7 +4,7 @@
 ### First, make sure that the working directory is set correctly. Change
 ### the address in setwd() to wherever you have the wine dataset stored.
 # setwd("C:/Users/William/Desktop/STAT 452-652/Lecture 3")
-source("Read Wine Data.R")
+source("C:/Users/injoo/OneDrive/Desktop/SFU/STAT 452/Tutorial/Lecture3/Read Wine Data.R")
 
 ### Set R's pseudo-random number generator to start at the same
 ### place every time we run this script. The actual number used

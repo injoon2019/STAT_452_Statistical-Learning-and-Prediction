@@ -2,7 +2,7 @@
 library(dplyr)
 
 ### Read-in dataset
-data.in = read.csv("Datasets/Wine Quality.csv")
+data.in = read.csv("C:/Users/injoo/OneDrive/Desktop/SFU/STAT 452/Tutorial/Lecture3/Wine Quality.csv")
 
 ### Use select to extract only the variables we want and filter
 ### to remove the sulphates outlier. %>% is called the pipe
