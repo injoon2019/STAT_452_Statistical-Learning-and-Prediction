@@ -2,7 +2,7 @@
 # Step Functions shown on the Prostate Data 
 # 
 
-prostate <-  read.table("C:\\Users\\Tom loughin\\sfuvault\\452 Statistical Learning\\R\\Prostate.csv", 
+prostate <-  read.table("Prostate.csv", 
                         header=TRUE, sep=",", na.strings=" ")
 summary(prostate)
 

@@ -1,6 +1,6 @@
 # Fitting various splines to Covid-19 data
 
-covid <-  read.csv ("C:\\Users\\Tom loughin\\sfuvault\\452 Statistical Learning\\R\\Covid BC 2020-09-22.csv", header=TRUE)
+covid <-  read.csv ("Covid BC 2020-09-22.csv", header=TRUE)
 covid$date = as.Date(covid$Date, "%Y-%m-%d")
 head(covid)
 summary(covid)

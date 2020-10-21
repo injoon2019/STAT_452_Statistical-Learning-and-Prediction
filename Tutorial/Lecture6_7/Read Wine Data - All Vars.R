@@ -2,7 +2,7 @@
 library(dplyr)
 
 ### Read-in dataset
-data.in = read.csv("Datasets/Wine Quality.csv")
+data.in = read.csv("Wine Quality.csv")
 
 
 ### Use transmute to rename variables, recode quality, and remove

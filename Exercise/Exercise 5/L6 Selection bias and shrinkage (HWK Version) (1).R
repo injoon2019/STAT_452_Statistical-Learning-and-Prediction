@@ -84,12 +84,12 @@ for(i in 1:iter){
 }
 
 #x11()
-#boxplot(MSPEs[,1:2], 
-#        main=paste0("Comparison of MSPEs\n R-squared=",
-#                    round(1/(1+sigma^2),2), ", n=",n,", p=",p),
-#        names=c("lm","step"))
-
-#min.t = apply(MSPEs[,1:2],1,min)
+# #boxplot(MSPEs[,1:2], 
+# #        main=paste0("Comparison of MSPEs\n R-squared=",
+# #                    round(1/(1+sigma^2),2), ", n=",n,", p=",p),
+# #        names=c("lm","step"))
+# 
+# #min.t = apply(MSPEs[,1:2],1,min)
 
 #x11()
 #boxplot(MSPEs[,1:2]/min.t, 
