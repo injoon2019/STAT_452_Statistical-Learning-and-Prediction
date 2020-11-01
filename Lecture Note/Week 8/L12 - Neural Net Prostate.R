@@ -8,7 +8,7 @@
 # Warning: this is complicated.  
 #  I will simplify it as much as possible, but it required some care to use properly. 
 
-prostate <-  read.table("C:\\Users\\Tom loughin\\sfuvault\\452 Statistical Learning\\R\\Prostate.csv", 
+prostate <-  read.table("Prostate.csv", 
                         header=TRUE, sep=",", na.strings=" ")
 #head(prostate)
 
