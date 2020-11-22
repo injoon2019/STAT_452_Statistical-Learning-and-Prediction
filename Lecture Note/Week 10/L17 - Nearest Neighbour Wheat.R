@@ -1,7 +1,7 @@
 # K-Nearest neighbour on the Wheat data
 ##########
 # Enter data and do some processing
-wheat <-  read.csv("C:\\Users\\Tom loughin\\sfuvault\\452 Statistical Learning\\R\\wheat.csv")
+wheat <-  read.csv("wheat.csv")
 head(wheat)
 summary(wheat)
 
