@@ -96,11 +96,11 @@ k.1se = max(which(mis.CV <= thresh))
 knn.min = knn(X.train.scale, X.valid.scale, Y.train, k.min)
 knn.1se = knn(X.train.scale, X.valid.scale, Y.train, k.1se)
 
-(mis.min = mean(Y.valid != knn.min))
-(mis.1se = mean(Y.valid != knn.1se))
+(mis.min = mean(Y.valid != knn.min)) #mis.min = 0.244
+table(knn.min, Y.valid, dnn = c("Predicted", "Observed")) 
 
-#mis.min = 0.244
-#mis.1se = 0.252
+(mis.1se = mean(Y.valid != knn.1se)) #mis.1se = 0.252
+table(knn.1se, Y.valid, dnn = c("Predicted", "Observed"))
 
 ################################################ Logistic Rregression
 data$Y = factor(data$Y, labels=c("A", "B", "C", "D", "E"))
@@ -142,14 +142,14 @@ pred.class.1 <- predict(fit.log.nnet, newdata=data.train.scale,
                         type="class")
 pred.class.2 <- predict(fit.log.nnet, newdata=data.valid.scale, 
                         type="class")
-(mul.misclass.train <- mean(ifelse(pred.class.1 == set1$Y, 
+(mul.misclass.train <- mean(ifelse(pred.class.1 == set1$Y,   # 0.242
                                    yes=0, no=1)))
-(mul.misclass.test <- mean(ifelse(pred.class.2 == set2$Y, 
+(mul.misclass.test <- mean(ifelse(pred.class.2 == set2$Y,    # 0.232
                                   yes=0, no=1)))
 
 pred.log.nnet = predict(fit.log.nnet, data.valid.scale)
-(misclass.log.nnet = mean(pred.log.nnet != Y.valid)) ### Misclass rate
-#0.232
+(misclass.log.nnet = mean(pred.log.nnet != Y.valid))         # Misclass rate #0.232
+table(pred.log.nnet, Y.valid, dnn = c("Predicted", "Observed"))
 
 ################################################  LASSO version of logistic regression
 X.train.scale = as.matrix(data.train.scale[,-1])
@@ -170,9 +170,11 @@ pred.lasso.min = predict(fit.CV.lasso, X.valid.scale, s = lambda.min,
 pred.lasso.1se = predict(fit.CV.lasso, X.valid.scale, s = lambda.1se,
                          type = "class")
 
-(miss.lasso.min = mean(Y.valid != pred.lasso.min)) #0.236
-(miss.lasso.1se = mean(Y.valid != pred.lasso.1se)) #0.232
+(miss.lasso.min = mean(Y.valid != pred.lasso.min)) #0.224
+table(pred.lasso.min, Y.valid, dnn = c("Predicted", "Observed"))
 
+(miss.lasso.1se = mean(Y.valid != pred.lasso.1se)) #0.212
+table(pred.lasso.1se, Y.valid, dnn = c("Predicted", "Observed"))
 
 ################################################  LDA
 scale.1 <- function(x1,x2){
@@ -196,16 +198,17 @@ plot(fit.lda, col = class.col)
 
 pred.lda = predict(fit.lda, X.valid.DA)$class
 
-table(Y.valid, pred.lda, dnn = c("Obs", "Pred"))
+# table(Y.valid, pred.lda, dnn = c("Obs", "Pred"))
 
-(miss.lda = mean(Y.valid != pred.lda)) #0.236
+(miss.lda = mean(Y.valid != pred.lda)) #0.204
+table(pred.lda, Y.valid, dnn = c("Predicted", "Observed"))
 
 ################################################  QDA
 fit.qda = qda(X.train.DA, Y.train)
 pred.qda = predict(fit.qda, X.valid.DA)$class
-table(Y.valid, pred.qda, dnn = c("Obs", "Pred"))
-(miss.qda = mean(Y.valid != pred.qda)) #0.164
-
+# table(Y.valid, pred.qda, dnn = c("Obs", "Pred"))
+(miss.qda = mean(Y.valid != pred.qda)) #0.228
+table(pred.qda, Y.valid, dnn = c("Predicted", "Observed"))
 
 ################################################  Naive Bayes
 perm <- sample (x= nrow ( data ))
@@ -225,16 +228,17 @@ fit.NB.notuserkernel = NaiveBayes(X.train, Y.train, usekernel = F)
 pred.NB.userkernel.raw = predict(fit.NB.userkernel, X.valid)
 pred.NB = pred.NB.userkernel.raw$class
 
-table(Y.valid, pred.NB, dnn = c("Obs", "Pred"))
-(mis.NB = mean(Y.valid != pred.NB)) #0.212
 
+(mis.NB = mean(Y.valid != pred.NB)) #0.2
+table(pred.NB, Y.valid, dnn = c("Predicted", "Observed"))
 
 #NOT Kernel
 pred.NB.notuserkernel.raw = predict(fit.NB.notuserkernel, X.valid)
 pred.NB = pred.NB.notuserkernel.raw$class
 
-table(Y.valid, pred.NB, dnn = c("Obs", "Pred"))
-(mis.NB = mean(Y.valid != pred.NB)) #0.24
+
+(mis.NB = mean(Y.valid != pred.NB)) #0.212
+table(pred.NB, Y.valid, dnn = c("Predicted", "Observed"))
 
 ##### PC
 fit.PCA = prcomp(X.train, scale. = T)
@@ -248,12 +252,14 @@ fit.NB.PC.notuserkernel = NaiveBayes(X.train.PC, Y.train, usekernel = F)
 #Kernel PC
 pred.NB.PC.userkernel.raw = predict(fit.NB.PC.userkernel, X.valid.PC)
 pred.NB = pred.NB.PC.userkernel.raw$class
-(mis.NB = mean(Y.valid != pred.NB))
+(mis.NB = mean(Y.valid != pred.NB)) #0.236
+table(pred.NB, Y.valid,dnn = c("Predicted", "Observed"))
 
 #NOT Kernel PC
 pred.NB.PC.notuserkernel.raw = predict(fit.NB.PC.notuserkernel, X.valid.PC)
 pred.NB = pred.NB.PC.notuserkernel.raw$class
-(mis.NB = mean(Y.valid != pred.NB))  #0.2
+(mis.NB = mean(Y.valid != pred.NB))  #0.188
+table(pred.NB, Y.valid,dnn = c("Predicted", "Observed"))
 
 ################################################  Classification Trees
 p.train = 0.75
@@ -295,16 +301,18 @@ prp(fit.tree.1se, type = 1, extra = 1, main = "CV-1se Tree")
 
 
 pred.tree.full = predict(fit.tree.full, data.valid, type = "class")
-table(Y.valid, pred.tree.full, dnn = c("Obs", "Pred"))
 (mis.tree.full = mean(Y.valid != pred.tree.full)) #0.284
+table(pred.tree.full, Y.valid, dnn = c("Predicted", "Observed"))
 
 pred.tree.min = predict(fit.tree.min, data.valid, type = "class")
 table(Y.valid, pred.tree.min, dnn = c("Obs", "Pred"))
-(mis.tree.min = mean(Y.valid != pred.tree.min)) #0.296
+(mis.tree.min = mean(Y.valid != pred.tree.min)) #0.272
+table(pred.tree.min, Y.valid, dnn = c("Obs", "Pred"))
 
 pred.tree.1se = predict(fit.tree.1se, data.valid, type = "class")
 table(Y.valid, pred.tree.1se, dnn = c("Obs", "Pred"))
-(mis.tree.1se = mean(Y.valid != pred.tree.1se)) #0.296
+(mis.tree.1se = mean(Y.valid != pred.tree.1se)) #0.276
+table(pred.tree.1se, Y.valid, dnn = c("Obs", "Pred"))
 
 ################################################  Random Forest
 data.rf = data
@@ -351,4 +359,22 @@ for(i in 1:n.pars){
 boxplot(all.OOB.rf, las=2, main = "OOB Boxplot")
 rel.OOB.rf = apply(all.OOB.rf, 1, function(W) W/min(W))
 boxplot(t(rel.OOB.rf), las=2,  # las sets the axis label orientation
-        main = "Relative OOB Boxplot") #4-1 has the lowest value
+        main = "Relative OOB Boxplot") #3-10 has the lowest value
+
+### Best model looks like mtry = 3 and nodesize = 10.
+fit.rf = randomForest(Y ~ ., data = data.train.rf,
+                      mtry = 3, nodesize = 10)
+
+### Get predictions and evaluate performance
+pred.rf = predict(fit.rf, data.valid.rf)
+
+table(Y.valid, pred.rf, dnn = c("Obs", "Pred"))
+(mis.rf = mean(Y.valid != pred.rf))   #0.204
+
+################################################  Data Prediction
+data2 = read.csv("P2Data2020testX.csv")
+fit.rf = randomForest(Y ~ ., data = data.train.rf,
+                      mtry = 3, nodesize = 10)
+
+pred.rf = predict(fit.rf, data2)
+write.table(pred.rf, "prediction1.csv", sep = ",", row.names = F, col.names = F)
